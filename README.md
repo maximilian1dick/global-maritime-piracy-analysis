@@ -1,49 +1,82 @@
-# global-maritime-piracy-analysis
-Bachelor thesis project: Automated extraction and GIS-based analysis of IMO piracy reports using Python, R and Shiny
 # Global Maritime Piracy Analysis (2010–2025)
 
-This repository contains the code, data processing workflows, and analysis scripts developed as part of my Bachelor's thesis on the spatial and temporal analysis of global maritime piracy.
+Bachelor's thesis project on the automated extraction, processing, spatial analysis, and interactive visualization of global maritime piracy incidents documented in IMO piracy reports.
 
-The project develops a reproducible workflow for extracting incident data from monthly IMO Piracy Reports, transforming the extracted information into a GIS-ready dataset, and analyzing global piracy patterns using Python, R, and GIS-based methods.
+This repository contains the Python and R workflows, analysis scripts, selected datasets, and Shiny application developed as part of my Bachelor's thesis in Applied Geoinformatics.
+
+The project implements a reproducible workflow for extracting piracy incident data from monthly IMO Piracy Reports, transforming the extracted information into a GIS-ready dataset, analyzing spatial and temporal patterns of maritime piracy, and providing an interactive web-based visualization of the resulting dataset.
+
+## Interactive Dashboard
+
+An interactive version of the Global Maritime Piracy Monitor is available online:
+
+https://maximilian1dick.shinyapps.io/global-maritime-piracy-monitor/
+
+The dashboard enables the exploration of piracy incidents from 2010 to 2025 using temporal filters, attribute-based filtering, point-based visualization, and hexagonal spatial aggregation.
 
 ## Project Overview
 
 The workflow consists of three main components:
 
-1. **Automated Data Extraction (Python)**  
-   A rule-based parsing workflow extracts piracy incidents from monthly IMO Piracy Reports and transforms the information into a structured dataset suitable for further analysis.
+1. **Automated Data Extraction (Python)**
 
-2. **Spatial and Statistical Analysis (R)**  
-   The generated dataset is analyzed using R. The analyses include temporal trends, regional differences, attack types, time-of-day patterns, seasonal patterns, hotspot analyses, and distance analyses related to coastlines and ports.
+   A rule-based parsing workflow extracts piracy incidents from monthly IMO Piracy Reports and transforms the extracted information into a structured, GIS-ready dataset.
 
-3. **Interactive Visualization (R Shiny)**  
-   An interactive Shiny dashboard enables the exploration of piracy incidents by year, month, region, attack type, and other attributes using point-based and hexagonal map visualizations.
+   The Python workflow processes the source reports, identifies individual incident records, extracts relevant attributes, standardizes the resulting data, and exports the final master dataset for subsequent analysis.
+
+2. **Spatial and Statistical Analysis (R)**
+
+   The generated dataset is processed and analyzed using R.
+
+   The analyses include:
+
+   - temporal development of piracy incidents,
+   - incident and attack types,
+   - waters types,
+   - time-of-day patterns,
+   - monthly and seasonal patterns,
+   - spatial hotspot analyses,
+   - regional developments,
+   - distances between piracy incidents and ports,
+   - distances between piracy incidents and coastlines,
+   - documented weapons used during piracy incidents.
+
+3. **Interactive Visualization (R Shiny)**
+
+   The interactive Shiny application enables the exploration of the piracy dataset through a web-based map interface.
+
+   The application provides temporal and attribute-based filtering, point-based incident visualization, hexagonal spatial aggregation, port information, and interactive map exploration.
 
 ## Repository Structure
 
-- `python/` – Python scripts for PDF processing, information extraction, data transformation, and quality control.
-- `r/` – R scripts for data preparation, statistical analysis, spatial analysis, visualization, and the Shiny dashboard.
-
-## Data Sources
-
-The primary data source consists of the monthly piracy reports published by the International Maritime Organization (IMO).
-
-Additional geospatial datasets are used for spatial analyses, including global coastline and port data.
-
-## Methodological Note
-
-The rule-based extraction workflow achieves high agreement with official IMO incident statistics for the reporting period from 2011 to 2020.
-
-Changes in the structure and formatting of the IMO reports from 2021 onwards reduce the completeness of the automated extraction. These limitations are quantified and explicitly considered in the interpretation of the analysis results.
-
-## Reproducibility
-
-The project follows a modular and reproducible workflow. Python is used for automated information extraction and dataset generation, while R is used for data preparation, statistical and spatial analyses, visualization, and the interactive dashboard.
-
-The complete repository, including scripts, documentation, and selected datasets, is currently being finalized and will be made available upon completion of the Bachelor's thesis.
-
-## Author
-
-**Maximilian Dick**
-
-Bachelor's thesis project in Applied Geoinformatics.
+```text
+global-maritime-piracy-analysis/
+│
+├── python/
+│   └── 00_build_piracy_master_dataset.py
+│
+├── r/
+│   ├── 00_init.R
+│   ├── 01_read_data.R
+│   ├── 02_temporal_analysis.R
+│   ├── 03_incident_type_analysis.R
+│   ├── 04_waters_type_analysis.R
+│   ├── 05_time_of_day_analysis.R
+│   ├── 06_hotspot_analysis.R
+│   ├── 07_monthly_analysis.R
+│   ├── 08_port_data_preparation.R
+│   ├── 09_port_distance_analysis.R
+│   ├── 10_distance_to_coast_analysis.R
+│   ├── 11_region_time_incident_analysis.R
+│   ├── 12_weapons_analysis.R
+│   └── master_runner.R
+│
+├── shiny-app/
+│   ├── app.R
+│   ├── piracy_mappable_2010_2025.rds
+│   ├── ports_processed.rds
+│   └── additional application resources
+│
+├── master_piracy_dataset.csv
+├── .gitignore
+└── README.md
